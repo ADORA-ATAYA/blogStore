@@ -24,7 +24,7 @@ const Home = () => {
         <button className='bg-white  p-3 rounded' type="submit"><FcSearch/></button>
       </div>
       <div className='md:pt-20 pt-11 place-content-center flex'>
-        <h1 className='font-serif md:text-2xl text-xl text-black'>Some latest Blogs for you -> </h1>
+        <h1 className='font-serif md:text-2xl text-xl text-black'>Some latest Blogs for you -</h1>
       </div>
       <div className='md:pt-10 pt-11 md:p-3.5 p-16 flex justify-evenly flex-wrap'>
         {card}

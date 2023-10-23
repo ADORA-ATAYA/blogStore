@@ -4,8 +4,12 @@ import {FaCrown} from "react-icons/fa"
 import {CgMenu} from "react-icons/cg"
 import {GrFormClose} from "react-icons/gr"
 import { Link } from 'react-router-dom'
+import { useAuth0 } from "@auth0/auth0-react";
 const Header = () => {
   const [open, setopen] = useState(false)
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
   return (
     <nav className='shadow-xl w-full fixed top-0 left-0'>
       <div className='md:flex bg-white py-4 md:px-10 px-7 justify-between items-center'>
@@ -26,13 +30,26 @@ const Header = () => {
           <li className='md:ml-8 text-xl md:my-0 my-4'><Link className='text-gray-800 hover:text-gray-400 duration-500' to={'/blogs'}>BLOGS</Link></li>
           <li className='md:ml-8 text-xl md:my-0 my-4'><Link className='text-gray-800 hover:text-gray-400 duration-500' to={'/about'}>ABOUT</Link></li>
           <li className='md:ml-8 text-xl md:my-0 my-4'><Link className='text-gray-800 hover:text-gray-400 duration-500' to={'/contact'}>CONTACT</Link></li>
-          <li className='md:ml-8 text-xl md:my-0 my-4'><Link className='text-gray-800 hover:text-gray-400 duration-500' to={'/login'}>LOGIN</Link></li>
-          <button className='bg-orange-500 text-white font-serif py-2 px-6 rounded md:ml-8 hover:bg-orange-400 duration-500 md:flex items-center'>
+          {
+            isAuthenticated ? <li className='md:ml-8 text-xl md:my-0 my-4'><button className='text-gray-800 hover:text-gray-400 duration-500' 
+                              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} >LOGOUT</button></li>
+                            : <li className='md:ml-8 text-xl md:my-0 my-4'><button className='text-gray-800 hover:text-gray-400 duration-500' 
+                              onClick={() => loginWithRedirect()} >LOGIN</button></li>
+          }
+          <li><Link to={'/premium'}>
+            <button className='bg-orange-500 text-white font-serif py-2 px-6 rounded md:ml-8 hover:bg-orange-400 duration-500 md:flex items-center'>
             <span className='text-yellow-400 md:mr-1'><FaCrown/></span>
             Premium
-          </button>
+            </button>
+          </Link></li>
             <div class="md:ml-8 text-xl md:my-0 my-4">
-              <img src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png" alt="..." class="shadow-lg border border-black rounded-full w-14 h-14" />
+            {
+              isAuthenticated ?<img src={user.picture} alt="..."
+                              class="shadow-lg border border-black rounded-full w-14 h-14" />
+
+                              :<img src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png" alt="..."
+                              class="shadow-lg border border-black rounded-full w-14 h-14" />
+            }
             </div>
         </ul>
       </div>

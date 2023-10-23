@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {FiPhoneCall,FiMail} from"react-icons/fi"
 import {MdLocationOn} from "react-icons/md"
 import {BsFacebook,BsInstagram, BsLinkedin, BsTwitter} from 'react-icons/bs'
 import { Button } from '@material-tailwind/react'
 
 const Contact = () => {
+  const [form, setform] = useState({})
+  const handlerform = (e)=>{
+    // console.log(e.target.value)
+  setform({ ...form,[e.target.name] :e.target.value})
+  }
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    const res = await fetch('http://localhost:8080/',{
+      method:'POST',
+      body: JSON.stringify(form),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+    const data = res.json()
+    console.log(data)
+  }
   return (
     <div className='bg-orange-500 h-full text-white pt-20 md:pt-20 pb-10 p-2'>
       <div className='flex w-full min-h-screen justify-center items-center '>
@@ -45,18 +62,18 @@ const Contact = () => {
             {/* <div className='absolute z-0 w-40 h-40 bg-amber-500 rounded-full -right-28 -top-28'></div>
             <div className='absolute z-0 w-40 h-40 bg-amber-500 rounded-full -left-28 -bottom-20'></div> */}
             <div className='z-10 bg-blue-500 rounded-xl shadow shadow-black p-8 text-gray-600 md:w-80'>
-              <form action="" className='flex flex-col space-y-4'>
+              <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
                 <div>
                   <label htmlFor="" className='text-sm'>Your Name</label>
-                  <input type="text" placeholder='Your name' className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300' />
+                  <input type="text" placeholder='Your name' onChange={handlerform} name='username' className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300' />
                 </div>
                 <div>
                   <label htmlFor="" className='text-sm'>Email Address</label>
-                  <input type="email" placeholder='example@gmail.com' className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300' />
+                  <input type="email" placeholder='example@gmail.com' onChange={handlerform} name='email' className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300' />
                 </div>
                 <div>
                   <label htmlFor="" className='text-sm'>Message</label>
-                  <textarea placeholder='example@gmail.com' rows="4" className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300'></textarea>
+                  <textarea placeholder='example@gmail.com' rows="4" onChange={handlerform} name='message' className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-300'></textarea>
                 </div>
                 <button className='inline-block self-end bg-black border border-black text-white font-bold rounded-lg px-2 py-2 uppercase text-sm'>send message</button>
               </form>

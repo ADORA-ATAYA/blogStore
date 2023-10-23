@@ -3,12 +3,15 @@ import Cards from './Cards'
 import Button from './Button';
 import {AiOutlineAlignLeft,AiOutlineAlignCenter,AiOutlineAlignRight,AiFillFileImage} from"react-icons/ai"
 import {PiListBullets} from "react-icons/pi"
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Blogs = () => {
   const card = Array.from({length: 9}, (_, index) => {
     return <Cards key={index} />;
   });
   const [textsize, settextsize] = useState(16)
+
+
   return (
     <div className='bg-orange-500 h-full text-white pt-20 pb-20'>
       <div className='container md:mx-auto px-28 mt-20'>

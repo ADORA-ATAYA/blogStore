@@ -6,9 +6,11 @@ import Contact from "./components/Contact"
 import Header from "./Header"
 import Footer from "./footer/Footer"
 import Blogs from './components/Blogs';
-import Authpage from './Pages/Authpage/Auth';
 import Registrationpage from './components/Registrationpage';
 import BlogPage from './components/BlogPage';
+import Premium from './components/Premium';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
   return (
@@ -19,9 +21,11 @@ function App() {
       <Route path="/blogs" element={<Blogs/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/contact" element={<Contact/>} />
-      <Route path="/login" element={<Authpage/>} />
+      <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Registrationpage/>} />
       <Route path="/readmore" element={<BlogPage/>} />
+      <Route path="/premium" element={<Premium />} />
+      <Route path="/signup" element={<Signup/>} />
     </Routes>
     <Footer />
   </BrowserRouter>
